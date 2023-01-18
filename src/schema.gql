@@ -63,9 +63,7 @@ type Mutation {
   """
   createProject(projInput: ProjRolInput!): Proyecto!
 
-  """
-  Recibe el nombre, descripcion y array de especialidades del proyecto y retorna el proyecto creado
-  """
+  """Recibe el id del proyecto y del developer y retorna el proyecto"""
   addDevtoProject(input: addDevToProjectType!): Proyecto!
 
   """

@@ -11,11 +11,19 @@ export class EspecialidadService {
   ) {}
 
   async findAll(): Promise<Especialidad[]> {
-    return await this.rolRepo.find();
+    try {
+      return await this.rolRepo.find();
+    } catch (err) {
+      throw err;
+    }
   }
 
   async createRol(dataRol: CreateRolInput): Promise<Especialidad> {
-    const newRol = this.rolRepo.create(dataRol);
-    return await this.rolRepo.save(newRol);
+    try {
+      const newRol = this.rolRepo.create(dataRol);
+      return await this.rolRepo.save(newRol);
+    } catch (err) {
+      throw err;
+    }
   }
 }

@@ -32,31 +32,35 @@ export class DeveloperService {
       newDev.especialidades = especialidades;
       return await this.devRepo.save(newDev);
     } catch (err) {
-      console.log(err);
+      throw err;
     }
   }
   async filtrarDev(dataInput: filtrarDevType): Promise<Developer[]> {
-    const { projectId, rolId } = dataInput;
-    const projectWhere = projectId
-      ? {
-          id: projectId,
-        }
-      : null;
-    const rolWhere = rolId
-      ? {
-          id: rolId,
-        }
-      : null;
-    const programadores = await this.devRepo.find({
-      relations: {
-        proyectos: true,
-        especialidades: true,
-      },
-      where: {
-        proyectos: projectWhere,
-        especialidades: rolWhere,
-      },
-    });
-    return programadores;
+    try {
+      const { projectId, rolId } = dataInput;
+      const projectWhere = projectId
+        ? {
+            id: projectId,
+          }
+        : null;
+      const rolWhere = rolId
+        ? {
+            id: rolId,
+          }
+        : null;
+      const programadores = await this.devRepo.find({
+        relations: {
+          proyectos: true,
+          especialidades: true,
+        },
+        where: {
+          proyectos: projectWhere,
+          especialidades: rolWhere,
+        },
+      });
+      return programadores;
+    } catch (err) {
+      throw err;
+    }
   }
 }

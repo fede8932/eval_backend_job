@@ -28,14 +28,22 @@ export class ProyectosResolver {
     description: 'Retorna el array con todos los roles',
   })
   async consultarRoles() {
-    return await this.especialidadService.findAll();
+    try {
+      return await this.especialidadService.findAll();
+    } catch (err) {
+      throw err;
+    }
   }
 
   @Mutation((returns) => Especialidad, {
     description: 'Recibe el nombre del rol y retorna el rol creado',
   })
   async createRol(@Args('rolInput') rolInput: CreateRolInput) {
-    return await this.especialidadService.createRol(rolInput);
+    try {
+      return await this.especialidadService.createRol(rolInput);
+    } catch (err) {
+      throw err;
+    }
   }
 
   @Mutation((returns) => Developer, {
@@ -43,7 +51,11 @@ export class ProyectosResolver {
       'Recibe el nombre, email y array de especialidades del dev y retorna el dev creado',
   })
   async createDev(@Args('devInput') devInput: DevRolInput) {
-    return await this.developerService.createDeveloper(devInput);
+    try {
+      return await this.developerService.createDeveloper(devInput);
+    } catch (err) {
+      throw err;
+    }
   }
 
   @Mutation((returns) => Proyecto, {
@@ -51,12 +63,16 @@ export class ProyectosResolver {
       'Recibe el nombre, descripcion y array de especialidades del proyecto y retorna el proyecto creado',
   })
   async createProject(@Args('projInput') projInput: ProjRolInput) {
-    return await this.proyectoService.createProject(projInput);
+    try {
+      return await this.proyectoService.createProject(projInput);
+    } catch (err) {
+      throw err;
+    }
   }
 
   @Mutation((returns) => Proyecto, {
     description:
-      'Recibe el nombre, descripcion y array de especialidades del proyecto y retorna el proyecto creado',
+      'Recibe el id del proyecto y del developer y retorna el proyecto',
   })
   async addDevtoProject(@Args('input') input: addDevToProjectType) {
     try {
@@ -80,7 +96,11 @@ export class ProyectosResolver {
       'Recibe el id y nuevo estado del proyecto y retorna el proyecto modificado',
   })
   async updateStatusProject(@Args('input') input: updateStatusType) {
-    return await this.proyectoService.updateStatusProject(input);
+    try {
+      return await this.proyectoService.updateStatusProject(input);
+    } catch (err) {
+      throw err;
+    }
   }
 
   @Query((returns) => [Developer], {
@@ -88,7 +108,11 @@ export class ProyectosResolver {
       'Retorna el array con todos los programadores que cumplan con los filtros',
   })
   async filtrarDev(@Args('dataInput') dataInput: filtrarDevType) {
-    return await this.developerService.filtrarDev(dataInput);
+    try {
+      return await this.developerService.filtrarDev(dataInput);
+    } catch (err) {
+      throw err;
+    }
   }
 
   @Query((returns) => [Proyecto], {
@@ -96,6 +120,10 @@ export class ProyectosResolver {
       'Retorna el array con todos los proyectos que cumplan con los filtros',
   })
   async filtrarProjecto(@Args('dataInput') dataInput: filtrarProjectsType) {
-    return await this.proyectoService.filtrarProjects(dataInput);
+    try {
+      return await this.proyectoService.filtrarProjects(dataInput);
+    } catch (err) {
+      throw err;
+    }
   }
 }

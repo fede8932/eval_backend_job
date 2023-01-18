@@ -38,7 +38,7 @@ export class ProyectoService {
       newProject.especialidades = especialidades;
       return await this.projectRepo.save(newProject);
     } catch (err) {
-      return err;
+      throw err;
     }
   }
   async addDevtoProject(data: addDevToProjectType): Promise<Proyecto> {
@@ -90,12 +90,16 @@ export class ProyectoService {
 
   async updateStatusProject(dataInput: updateStatusType): Promise<Proyecto> {
     const { status, projectId } = dataInput;
-    const proyecto = await this.projectRepo.findOne({
-      where: {
-        id: projectId,
-      },
-    });
-    proyecto.status = status;
-    return await this.projectRepo.save(proyecto);
+    try {
+      const proyecto = await this.projectRepo.findOne({
+        where: {
+          id: projectId,
+        },
+      });
+      proyecto.status = status;
+      return await this.projectRepo.save(proyecto);
+    } catch (err) {
+      throw err;
+    }
   }
 }
