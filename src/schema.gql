@@ -1,0 +1,101 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Proyecto {
+  id: Int!
+  nombre: String!
+  descripcion: String!
+  status: ProjectStatus
+}
+
+enum ProjectStatus {
+  desarrollo
+  creado
+  produccion
+}
+
+type Especialidad {
+  id: Int!
+  name: String!
+}
+
+type Developer {
+  id: Int!
+  nombre: String!
+  email: String!
+}
+
+type Query {
+  """Retorna el array con todos los roles"""
+  consultarRoles: [Especialidad!]!
+
+  """
+  Retorna el array con todos los programadores que cumplan con los filtros
+  """
+  filtrarDev(dataInput: filtrarDevType!): [Developer!]!
+
+  """Retorna el array con todos los proyectos que cumplan con los filtros"""
+  filtrarProjecto(dataInput: filtrarProjectsType!): [Proyecto!]!
+}
+
+input filtrarDevType {
+  projectId: Int
+  rolId: Int
+}
+
+input filtrarProjectsType {
+  rolId: Int
+  status: ProjectStatus
+}
+
+type Mutation {
+  """Recibe el nombre del rol y retorna el rol creado"""
+  createRol(rolInput: CreateRolInput!): Especialidad!
+
+  """
+  Recibe el nombre, email y array de especialidades del dev y retorna el dev creado
+  """
+  createDev(devInput: DevRolInput!): Developer!
+
+  """
+  Recibe el nombre, descripcion y array de especialidades del proyecto y retorna el proyecto creado
+  """
+  createProject(projInput: ProjRolInput!): Proyecto!
+
+  """
+  Recibe el nombre, descripcion y array de especialidades del proyecto y retorna el proyecto creado
+  """
+  addDevtoProject(input: addDevToProjectType!): Proyecto!
+
+  """
+  Recibe el id y nuevo estado del proyecto y retorna el proyecto modificado
+  """
+  updateStatusProject(input: updateStatusType!): Proyecto!
+}
+
+input CreateRolInput {
+  name: String!
+}
+
+input DevRolInput {
+  nombre: String!
+  email: String!
+  roles: [String!]!
+}
+
+input ProjRolInput {
+  nombre: String!
+  descripcion: String!
+  roles: [String!]!
+}
+
+input addDevToProjectType {
+  devId: Int!
+  projectId: Int!
+}
+
+input updateStatusType {
+  projectId: Int!
+  status: ProjectStatus!
+}
